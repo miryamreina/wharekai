@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/wharekai.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.5.min.css" />
+	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#formulario").submit(function(e) { 
+				e.preventDefault();
+				$.ajax({
+					type: 'POST',
+					url: 'loginUser.php',
+					dataType : 'json',
+					data: {
+						usuario: $("#nombredeusuario").val(),
+						password: $("#clave").val()
+					},
+					success: function(data) {
+						if(data == "ok") {
+						  $.mobile.changePage("#principal");
+						  return false;
+						} else {
+						  $.mobile.changePage("#error");
+						  return false;
+						}
+					}
+				});
+			});
+		});
+	</script>
+    <title>Wharekai Restaurantes</title>
+</head>
+
+<body>
+    <div data-role="page" id="login">
+		<div data-role="header">			
+			<h1>WHAREKAI</h1>
+		</div>
+		<div data-role="header" id="banner-main"></div>
+		<div data-role="content">
+			<form id="formulario">
+      			<label for="nombredeusuario">Usuario</label>
+      			<input type="text" id="nombredeusuario" name="nombredeusuario" data-clear-btn="true">
+      			<label for="clave">Password</label>
+     			<input type="password" id="clave" name="clave" data-clear-btn="true">
+      			<input type="submit" value="Entrar" id="botonLogin">
+			</form>		
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	
+	<div data-role="page" id="principal">
+		<div data-role="header">
+			<h1>Wharekai Restaurantes</h1>
+			<a href="#login" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-power">Salir</a>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 10px; margin-bottom: 5px;" id="id1" href="#configuracion">Configuración</a>
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 0px; margin-bottom: 5px;" id="id2" href="#recetas">Recetas / Escandallos</a>
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 0px; margin-bottom: 5px;" id="id3" href="#inventario">Inventario</a>
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 0px; margin-bottom: 5px;" href="#compras">Compras</a>
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 0px; margin-bottom: 5px;" href="#ventas">Ventas</a>
+				<a data-role="button" data-theme="x" data-icon="arrow-r" data-iconpos="right" data-textonly="false" data-textvisible="true" data-msgtext="Loading" class="show-page-loading-msg" style="margin-top: 0px; margin-bottom: 5px;" href="#informes">Informes</a>
+			   <p style="margin-top: 30px; text-align: center;" class="copyright xvisible-phone">Copyright &copy; 2016. Wharekai Restaurantes</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a class="ui-btn-active" data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="configuracion">
+		<div data-role="panel" data-position="left" id="panelconfig">
+			<a href="#" class="ui-btn ui-mini ui-icon-eye ui-btn-icon-left">Ver Usuarios</a>
+			<a href="#" class="ui-btn ui-mini ui-icon-eye ui-btn-icon-left">Ver Proveedores</a>
+		</div>
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Configuración</h1>
+			<a href="#panelconfig" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-bars">Inicio</a>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<div data-role="collapsibleset" data-inset="false">
+				<div data-role="collapsible">
+					<h3>Establecimiento</h3>
+					<form id="formestablecimiento">
+						<input type="text" id="nomcomercial" name="nomcomercial" value="" data-clear-btn="true" placeholder="Nombre comercial">
+						<input type="text" id="nomfiscal" name="nomfiscal" value="" data-clear-btn="true" placeholder="Nombre fiscal">
+						<input type="text" id="nif" name="nif" value="" data-clear-btn="true" placeholder="NIF/CIF">
+						<input type="text" id="direccion" name="direccion" value="" data-clear-btn="true" placeholder="Dirección">
+						<input type="text" id="poblacion" name="poblacion" value="" data-clear-btn="true" placeholder="Población">
+						<input type="text" id="cpostal" name="cpostal" value="" data-clear-btn="true" placeholder="Código postal">
+						<input type="text" id="provincia" name="provincia" value="" data-clear-btn="true" placeholder="Provincia">
+						<select id="pais" name="pais">
+							<option value="España">España</option>
+							<option value="Portugal">Portugal</option>
+							<option value="Francia">Francia</option>
+						</select>
+						<input type="tel" id="telestablecimiento" name="telestablecimiento" value="" data-clear-btn="true" placeholder="Teléfono">
+						<input type="email" id="emailestablecimiento" name="emailestablecimiento" value="" data-clear-btn="true" placeholder="Correo electrónico">
+						<input type="submit" value="Guardar datos" id="guardarestablecimiento">
+					</form>
+				</div>
+				<div data-role="collapsible">
+					<h3>Datos económicos</h3>
+					<form id="formeconomico">
+						<input type="text" id="ivarepercutido" name="ivarepercutido" value="" data-clear-btn="true" placeholder="% de IVA repercutido">
+						<input type="text" id="porcentajecoste" name="porcentajecoste" value="" data-clear-btn="true" placeholder="% de Coste deseado">
+						<input type="text" id="porcentajemargen" name="porcentajemargen" value="" data-clear-btn="true" placeholder="% de Margen mínimo">
+						<input type="text" id="margeneuros" name="margeneuros" value="" data-clear-btn="true" placeholder="Margen mínimo en euros">
+						<input type="submit" value="Guardar datos" id="guardareconomico">
+					</form>
+				</div>
+				<div data-role="collapsible">
+					<h3>Administrador</h3>
+					<form id="formadministrador">
+						<input type="text" id="nomadmin" name="nomadmin" value="" data-clear-btn="true" placeholder="Nombre completo">
+						<input type="email" id="emailadmin" name="emailadmin" value="" data-clear-btn="true" placeholder="Correo electrónico">
+						<input type="password" id="passadmin" name="passadmin" value="" data-clear-btn="true" placeholder="Contraseña">
+						<input type="submit" value="Guardar datos" id="guardaradmin">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="plus" id="id5" href="#empleados">Empleados</a></li>
+                        <li><a data-transition="fade" data-icon="plus" id="id4" href="#proveedores">Proveedores</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="recetas">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Recetas y Escandallos</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Recetas y Escandallos</h3>
+			<p>La opción de recetas y escandallos representa uno de los elementos centrales de la aplicación. El escandallo de un plato representa la suma de lo costes de sus ingredientes a precio de compra y sus cantidades.</p>
+			<p>Con el escandallo, por lo tanto, obtenemos el coste de un plato antes de su producción. A través del escandallo podemos calcular la rentabilidad de un plato, así como determinar si dicho plato cumple con las expectativas de rendimiento del mismo.</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="inventario">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Inventario</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Inventario</h3>
+			<p>A través de esta opción es posible optimizar las unidades almacenadas, los costes de matenimiento y el manejo de materias primas.</p>
+			<p>El control de inventario nos permite minimizar las pérdidas por robo, deterioro o caducidad; además nos permite evitar las compras innecesarias o de última hora.</p>
+			<p>El inventario nos permite obtener el estado financiero que refleje la realidad de nuestro negocio en un momento dado.</p>
+
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="compras">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Compras</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Compras</h3>
+			<p>La opción de compras es de vital importancia para mantener el proceso productivo de nuestro negocio, adquiriendo las materias primas y demás productos  de la mejor calidad y con las mejores condiciones de precio.</p>
+			<p>Algunos de los objetivos que alcanzamos con una adecuada gestión de las compras son: comprar al mejor precio, mantener el inventario a nivel óptimo, seleccionar adecuadamente a nuestros proveedores, etc.</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="ventas">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Ventas</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Ventas</h3>
+			<p>Esta opción le permitirá llevar un exhaustivo control de sus ventas e ingresos, así como el rendimiento obtenido.</p>
+			<p>Podrá consultar de forma rápida por fechas, platos, y otros filtros.</p>
+			<p>La opción de ventas le permite realizar una gestión y control de reservas con un sólo clic.</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="informes">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Informes</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Informes</h3>
+			<p>La opción de informes nos permite obtener y analizar toda la información que obtenemos a través de las diferentes herramientas disponibles en nuestra aplicación.</p>
+			<p>La correcta interpretación de la información que obtenemos de las redes sociales, programas de fidelización, marketing, TPV, análisis de costes, etc, puede resultar en un incremento en la rentabilidad de nuestro negocio.</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="contactar">
+		<div data-role="header">
+			<a href="#principal" class="ui-btn ui-mini ui-corner-all ui-btn-icon-left ui-btn-icon-notext ui-icon-home">Inicio</a>
+			<h1>Contactar</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 10px; text-align: center;">Contactar</h3>
+			<p>Complete el siguiente formulario o bien envíe un correo electrónico a la siguiente dirección:</p>
+			<p style="font-size: 12px; text-align: center;"><a href="mailto:comercial@wharekai.es">comercial@wharekai.es</a></p>
+			<form id="formcontacto">
+				<label for="nombre">Nombre</label>
+      			<input type="text" id="nombre" name="nombre" value="" data-clear-btn="true">
+      			<label for="email">Email</label>
+     			<input type="email" id="email" name="email" value="" data-clear-btn="true">
+				<label for="mensaje">Mensaje</label>
+				<textarea rows="8" name="mensaje" id="mensaje"></textarea>
+				<p style="font-size: 9px;">Al enviar acepto la política de privacidad y condiciones de uso.</p>
+      			<input type="submit" value="Enviar" id="enviarcontacto">
+			</form>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+	<div data-role="page" id="error">
+		<div data-role="header" data-add-back-btn="true" data-back-btn-text="Atrás">
+			<h1>Wharekai Restaurantes</h1>
+		</div>
+		<div data-role="content" style="padding-bottom: 2em; margin: 0 auto; max-width: 450px !important;">
+			<h3 style="margin-top: 30px; text-align: center;">Error de validación de usuario</h3>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a data-transition="fade" data-icon="phone" data-theme="a" id="id5" href="#contactar">Contactar</a></li>
+                        <li><a data-transition="fade" data-icon="info" data-theme="a" id="id4" href="javascript:;">Front Office</a></li>
+                        <li><a href="http://www.wharekai.es/" data-transition="fade" data-icon="grid" data-rel="dialog" data-theme="a">Wharekai</a></li>
+                    </ul>
+            </div>
+		</div>
+	</div>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+</html>
